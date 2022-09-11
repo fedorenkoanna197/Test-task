@@ -1,100 +1,35 @@
 
+
 function loadGrain(levels) {
+  let res;
 
-  let res = 0;
-  let max = 0;
-  if (levels.length === 2 || levels.length === 0) {
-    return res = 0;
+  if (levels.length === 0) {
+      return 0;
   }
-  for (let i = 0; i % levels.length == 0; i++) {
 
-    if (levels[i + 1] < levels[i] && levels[i + 1] < levels[i + 2]) {
+  res = levels.map((ele, i, arr) => {
 
-      if (levels[i] < levels[i + 2]) {
-        res += levels[i] - levels[i + 1];
-        max = levels[i + 2];
-      }
-      if (levels[i] > levels[i + 2]) {
-        res += levels[i + 2] - levels[i + 1];
-        max = levels[i];
-      }
-      if (levels[i + 1] === 0 && max < levels.length) {
-        res += max - levels[i + 1]
-      }
-      if (levels[i + 1] === 0 && max >= levels.length) {
-        res += levels.length
-      }
-    }
+      if (arr.length == 3) {
+          if (arr[i + 1] < arr[i + 2] && arr[i + 1] < ele) {
+              if (arr[i + 2] < ele)
+                  return arr[i + 2] - arr[i + 1];
+          } else if (arr[i + 2] > ele) {
+              return ele - arr[i + 1];
+          } else {
+              return 0;
+          }
 
-    if (levels[i + 2] < levels[i + 3] && levels[i + 2] < levels[i + 1]) {
-      if (levels[i + 3] < levels[i + 1]) {
-        res += levels[i + 3] - levels[i + 2]
-        max = levels[i + 1];
       }
-      if (levels[i + 3] > levels[i + 1]) {
-        res += levels[i + 1] - levels[i + 2]
-        max = levels[i + 3]
-      }
-      if (levels[i + 2] === 0 && max < levels.length) {
-        res += max - levels[i + 2];
-      }
-      if (levels[i + 2] === 0 && max >= levels.length) {
-        res += levels.length;
-      }
+      if (ele > arr[i + 1] && arr[i + 2] > arr[i + 1] && ele !== 0) {
+          return ele - arr[i + 1];
+      } else if (ele === 0) {
+          return arr[i + 1] - ele;
+      } else {
+          return 0;
+      } А
+  }).filter(e => e !== undefined).reduce((a, b) => a + b);
 
-    }
-
-    if (levels[i + 3] < levels[i + 4] && levels[i + 3] < levels[i + 2]) {
-      if (levels[i + 4] < levels[i + 2]) {
-        res += levels[i + 4] - levels[i + 3];
-        max = levels[i + 2];
-      } if (levels[i + 4] > levels[i + 2]) {
-        res += levels[i + 2] - levels[i + 3]
-        max = levels[i + 4];
-      } if (levels[i + 3] === 0 && max < levels.length) {
-        res += max - levels[i + 3];
-      }
-      if (levels[i + 3] === 0 && max >= levels.length) {
-        res += levels.length
-      }
-    }
-
-    if (levels[i + 4] < levels[i + 5] && levels[i + 4] < levels[i + 3]) {
-      if (levels[i + 3] < levels[i + 5]) {
-        res += levels[i + 3] - levels[i + 4];
-        max = levels[i + 5];
-      }
-      if (levels[i + 3] > levels[i + 5]) {
-        res += levels[i + 5] - levels[i + 4];
-        max = levels[i + 3];
-      }
-      if (levels[i + 4] === 0 && max < levels.length) {
-        res += max - levels[i + 4];
-      }
-      if (levels[i + 4] === 0 && max >= levels.length) {
-        res += levels.length;
-      }
-    }
-
-    if (levels[i + 5] < levels[i + 6] && levels[i + 5] < levels[i + 4]) {
-      if (levels[i + 4] < levels[i + 6]) {
-        res += levels[i + 4] - levels[i + 5];
-        max = levels[i + 5];
-      }
-      if (levels[i + 4] > levels[i + 6]) {
-        res += levels[i + 6] - levels[i + 5];
-        max += levels[i + 6];
-      }
-      if (levels[i + 5] === 0 && max < levels.length) {
-        res += max - levels[i + 5];
-      }
-      if (levels[i + 5] === 0 && max >= levels.length) {
-        res += levels.length;
-      }
-    }
-
-  }
-  return res;
+  return res
 }
 
 console.log(loadGrain([4, 1, 3]));
@@ -104,4 +39,4 @@ console.log(loadGrain([2, 0, 1, 5, 2, 7]));
 console.log(loadGrain([2, 4, 2]));
 console.log(loadGrain([7, 4]));
 console.log(loadGrain([]));
-console.log(loadGrain([4, 0, 2, 4, 2, 5]));
+
